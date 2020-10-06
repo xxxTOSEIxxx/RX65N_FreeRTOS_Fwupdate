@@ -9,7 +9,6 @@
 #define LENGTH_SIZE									( 2 )
 #define CHECK_SUM_SIZE								( 2 )
 #define	NEW_LINE_SIZE								( 2 )
-#define CF_WRITE_MIN_SIZE							( 128 ) 	// 最小プログラムサイズ(BYTE)
 
 
 //-----------------------------------------------
@@ -29,17 +28,6 @@ typedef enum
 } MOTOROLA_STYPE_RESULT_ENUM;
 
 
-//-----------------------------------------------
-// コード書き込み情報
-//-----------------------------------------------
-typedef struct
-{
-	uint32_t  										StartAddress;	// 書込み開始アドレス
-	uint32_t										EndAddress;		// 書込み開始アドレス
-
-	uint8_t											Data[CF_WRITE_MIN_SIZE];
-
-} CF_WRITE_INFO_TABLE;
 
 //-----------------------------------------------
 // S-Type レコード種別
