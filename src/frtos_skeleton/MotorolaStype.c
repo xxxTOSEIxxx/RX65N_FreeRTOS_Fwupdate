@@ -11,7 +11,7 @@
 #include "stdlib.h"
 
 
-#define DEBUG_PRINTF
+//#define DEBUG_PRINTF
 
 
 
@@ -167,7 +167,7 @@ static MOTOROLA_STYPE_RESULT_ENUM Analyze_S0(FIL *pFile, STYPE_RECORD_TABLE* ptS
 
 
 	// S0のレコードサイズは固定なので、S0レコードサイズ分読み込む
-	eFileResult = f_read(pFile, ptStypeRecord->tS0.sz0E,sizeof(S0_RECORD_TABLE), &ReadNum);
+	eFileResult = f_read(pFile, &ptStypeRecord->tS0,sizeof(S0_RECORD_TABLE), &ReadNum);
 	if (eFileResult != FR_OK)
 	{
 		return MOTOROLA_STYPE_RESULT_ERROR_ANALYZE;

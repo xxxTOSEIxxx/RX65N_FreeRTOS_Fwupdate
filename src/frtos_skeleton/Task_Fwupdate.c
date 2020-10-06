@@ -48,7 +48,7 @@ void Task_Fwupdate(void * pvParameters)
 	FIL								file;
 	flash_err_t						eFlashResult = FLASH_SUCCESS;
 //	flash_bank_t 					eBankInfo;							// 起動バンク情報
-
+	int								Cnt = 0;
 
 	// SW
 	PORTA.PDR.BIT.B2 = 0;
@@ -108,17 +108,25 @@ void Task_Fwupdate(void * pvParameters)
 		goto Task_Fwupdate_EndProc_Label;
 	}
 
-#if 0
 	// モトローラ S-Typeファイルの解析
 	while(1)
 	{
+		// モトローラ S-Typeレコード1件分を読込み
 		eResult = ReadStypeRecord(&file,&g_Fwupdate.tStypeRecord, &g_Fwupdate.tStypeFlashInfo);
 		if (eResult != MOTOROLA_STYPE_RESULT_SUCCESS)
 		{
-			break;
+			if (eResult == MOTOROLA_STYPE_RESULT_FILE_EOF)
+			{
+				break;
+			}
+			else
+			{
+				printf("ReadStypeRecord Error. [eResult:%d]\n",eResult);
+				g_tGlobalInfo.eLedKind = LED_KIND_ERROR;
+				goto Task_Fwupdate_EndProc_Label;
+			}
 		}
 	}
-#endif
 
 	printf("update Success!\n");
 	g_tGlobalInfo.eLedKind = LED_KIND_ON;
